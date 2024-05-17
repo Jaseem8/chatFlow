@@ -2,14 +2,20 @@
   display: flex;
   justify-content: flex-end;
   border: 2px solid rgb(220, 10, 139);
+  margin-right: 5px;
 }
 
 .save-button {
   padding: 10px 20px;
-  background-color: #bfdbf9;
+  background-color: #5981ac;
   color: white;
-
+  margin-right: 15px;
   cursor: pointer;
 
   border: 2px solid yellow;
+}
+
+.save-button:hover {
+  background-color: #6c8ca7;
+  transform: scale(1.05);
 }

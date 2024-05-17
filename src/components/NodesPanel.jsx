@@ -1,6 +1,6 @@
 // src/components/NodesPanel.jsx
 import React from "react";
-
+import chatImage from "../images/chat2.png";
 import "../css/NodesPanel.css"; // Assuming you have a CSS file for styling
 
 const NodesPanel = () => {
@@ -16,7 +16,7 @@ const NodesPanel = () => {
         onDragStart={(event) => onDragStart(event, "Messages")}
         draggable
       >
-        <img src="../images/chat2.png" />
+        <img src={chatImage} alt="Messages" />
         <div>Messages</div>
       </div>
     </aside>

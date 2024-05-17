@@ -6,18 +6,29 @@
   border-right: 1px solid #ccc;
   border-radius: 5px;
   border: 2px solid rgb(89, 0, 255);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .node-item {
-  border: 1px solid red;
-  max-height: fit-content;
-  height: 25px;
-  padding: 5px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-height: 50px;
+
+  padding: 1px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px rgba(68, 67, 67, 0.1);
   text-align: center;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   cursor: pointer;
+}
+.node-item img {
+  width: 25px;
+}
+
+.node-item :hover {
+  transform: scale(1.05);
 }

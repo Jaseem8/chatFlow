@@ -18,12 +18,33 @@ import Save from "./Save";
 import "../css/FlowBuilder.css";
 import { initialNodes, nodeTypes } from "../nodes";
 import { initialEdges, edgeTypes } from "../edges";
-
+import Cookies from "js-cookie";
 let id = 0;
 const getId = () => `dndnode_${id++}`;
+
 const FlowBuilder = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const savedNodesCookie = Cookies.get("savedNodes");
+  let savedNodes;
+  if (savedNodesCookie) {
+    // If the cookie exists, parse its value to retrieve the saved nodes
+    savedNodes = JSON.parse(savedNodesCookie);
+    console.log("Saved nodes:", savedNodes);
+  } else {
+    savedNodes = [];
+  }
+
+  const savedEdgesCookie = Cookies.get("savedEdges");
+  let savedEdges;
+  if (savedEdgesCookie) {
+    // If the cookie exists, parse its value to retrieve the saved edges
+    savedEdges = JSON.parse(savedEdgesCookie);
+    console.log("Saved edges:", savedEdges);
+  } else {
+    savedEdges = [];
+  }
+
+  const [nodes, setNodes, onNodesChange] = useNodesState(savedNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(savedEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [isNodeSelected, setisNodeSelected] = useState(false);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -87,7 +108,7 @@ const FlowBuilder = () => {
   };
   return (
     <>
-      <Save />
+      <Save nodes={nodes} edges={edges} />
       <div className="flow-builder">
         <div className="reactflow-wrapper">
           <ReactFlow
