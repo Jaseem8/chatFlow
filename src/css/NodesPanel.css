@@ -1,0 +1,23 @@
+.nodes-panel {
+  display: flex;
+  width: 200px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  border-radius: 5px;
+  border: 2px solid rgb(89, 0, 255);
+}
+
+.node-item {
+  border: 1px solid red;
+  max-height: fit-content;
+  height: 25px;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}

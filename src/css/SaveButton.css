@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: flex-end;
+  border: 2px solid rgb(220, 10, 139);
+}
+
+.save-button {
+  padding: 10px 20px;
+  background-color: #bfdbf9;
+  color: white;
+
+  cursor: pointer;
+
+  border: 2px solid yellow;
+}

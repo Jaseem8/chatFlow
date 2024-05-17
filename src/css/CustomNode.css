@@ -1,0 +1,35 @@
+.custom-node {
+  width: 150px;
+  aspect-ratio: 6;
+
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.custom-node-header {
+  height: 8px;
+  background-color: #b2f0e3;
+  color: rgb(0, 0, 0);
+  padding: 1px;
+  text-align: left;
+  font-size: 6px;
+  font-weight: bolder;
+}
+
+.custom-node-body {
+  background-color: #f1f1f1;
+  color: #333;
+  padding: 3px;
+  font-size: 9px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.custom-handle {
+  width: 1px;
+  height: 1px;
+  background: #272e35;
+  border: none;
+}

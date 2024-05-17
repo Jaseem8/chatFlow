@@ -1,0 +1,10 @@
+.flow-builder {
+  display: flex;
+  height: 100vh;
+  border: 2px solid red;
+}
+
+.reactflow-wrapper {
+  flex-grow: 1;
+  position: relative;
+}
