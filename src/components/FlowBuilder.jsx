@@ -19,30 +19,32 @@ import "../css/FlowBuilder.css";
 import { initialNodes, nodeTypes } from "../nodes";
 import { initialEdges, edgeTypes } from "../edges";
 import Cookies from "js-cookie";
-let id = 0;
+const savedNodesCookie = Cookies.get("savedNodes");
+let id;
+let savedNodes;
+if (savedNodesCookie) {
+  // If the cookie exists, parse its value to retrieve the saved nodes
+  savedNodes = JSON.parse(savedNodesCookie);
+  id = savedNodes.length - 1;
+  console.log("Saved nodes:", savedNodes);
+} else {
+  id = 0;
+  savedNodes = [];
+}
+
+const savedEdgesCookie = Cookies.get("savedEdges");
+let savedEdges;
+if (savedEdgesCookie) {
+  // If the cookie exists, parse its value to retrieve the saved edges
+  savedEdges = JSON.parse(savedEdgesCookie);
+  console.log("Saved edges:", savedEdges);
+} else {
+  savedEdges = [];
+}
+
 const getId = () => `dndnode_${id++}`;
 
 const FlowBuilder = () => {
-  const savedNodesCookie = Cookies.get("savedNodes");
-  let savedNodes;
-  if (savedNodesCookie) {
-    // If the cookie exists, parse its value to retrieve the saved nodes
-    savedNodes = JSON.parse(savedNodesCookie);
-    console.log("Saved nodes:", savedNodes);
-  } else {
-    savedNodes = [];
-  }
-
-  const savedEdgesCookie = Cookies.get("savedEdges");
-  let savedEdges;
-  if (savedEdgesCookie) {
-    // If the cookie exists, parse its value to retrieve the saved edges
-    savedEdges = JSON.parse(savedEdgesCookie);
-    console.log("Saved edges:", savedEdges);
-  } else {
-    savedEdges = [];
-  }
-
   const [nodes, setNodes, onNodesChange] = useNodesState(savedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(savedEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -95,12 +97,12 @@ const FlowBuilder = () => {
     console.log(node);
   };
   const handleConfirm = (id, content) => {
-    console.log(id, content);
     setNodes((nds) =>
       nds.map((node) =>
         node.id === id ? { ...node, data: { ...node.data, content } } : node
       )
     );
+
     setSelectedNode(null);
   };
   const handleBack = () => {

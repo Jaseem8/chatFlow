@@ -14,6 +14,7 @@ const Save = ({ nodes, edges }) => {
     // Simulate asynchronous saving with setTimeout
     setTimeout(() => {
       setSaving(false); // Set saving state back to false after saving is complete
+      console.log("Nodes saved:", edges);
       console.log("Nodes saved:", nodes);
     }, 1000); // Simulate a 2-second delay
   };
