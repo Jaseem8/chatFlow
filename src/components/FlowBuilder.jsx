@@ -1,5 +1,5 @@
 // src/components/FlowBuilder.jsx
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useCallback } from "react";
 import {
   Background,
@@ -16,23 +16,25 @@ import NodesPanel from "./NodesPanel";
 import SettingsPanel from "./SettingsPanel";
 import Save from "./Save";
 import "../css/FlowBuilder.css";
-import { initialNodes, nodeTypes } from "../nodes";
-import { initialEdges, edgeTypes } from "../edges";
-import Cookies from "js-cookie";
-const savedNodesCookie = Cookies.get("savedNodes");
+import { nodeTypes } from "../nodes";
+import { edgeTypes } from "../edges";
+
+import { toast } from "react-toastify";
+
 let id;
+const savedNodesCookie = localStorage.getItem("savedNodes");
 let savedNodes;
 if (savedNodesCookie) {
   // If the cookie exists, parse its value to retrieve the saved nodes
   savedNodes = JSON.parse(savedNodesCookie);
+  console.log("loaded Nodes", savedNodes);
   id = savedNodes.length;
-  console.log("Saved nodes:", savedNodes);
 } else {
   id = 0;
   savedNodes = [];
 }
 
-const savedEdgesCookie = Cookies.get("savedEdges");
+const savedEdgesCookie = localStorage.getItem("savedEdges");
 let savedEdges;
 if (savedEdgesCookie) {
   // If the cookie exists, parse its value to retrieve the saved edges
@@ -50,6 +52,7 @@ const FlowBuilder = () => {
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [isNodeSelected, setisNodeSelected] = useState(false);
   const [selectedNode, setSelectedNode] = useState(null);
+
   const onConnect = useCallback(
     (params) => {
       // Check if there is already an edge from the source handle
@@ -59,8 +62,17 @@ const FlowBuilder = () => {
           edge.sourceHandle === params.sourceHandle
       );
       if (sourceHandleHasEdge) {
-        alert(
-          "Error: Each source handle can only have one edge originating from it."
+        toast.error(
+          "Each Source can only have one handle originating from it",
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          }
         );
         return;
       }
@@ -81,7 +93,13 @@ const FlowBuilder = () => {
       const type = event.dataTransfer.getData("application/reactflow");
 
       // check if the dropped element is valid
+      // check if the dropped element is valid
       if (typeof type === "undefined" || !type) {
+        return;
+      }
+
+      if (type === "source" || type === "target") {
+        // It's an edge, so ignore it
         return;
       }
 
@@ -96,7 +114,11 @@ const FlowBuilder = () => {
         id: getId(),
         type: "custom-node",
         position: dropPosition,
-        data: { label: `${type} node`, content: `Default Text ${id}` },
+        data: {
+          label: `${type} node`,
+          content: `Default Text ${id}`,
+          hasError: false,
+        },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
       };
@@ -125,7 +147,7 @@ const FlowBuilder = () => {
   };
   return (
     <>
-      <Save nodes={nodes} edges={edges} />
+      <Save nodes={nodes} edges={edges} setNodes={setNodes} />
       <div className="flow-builder">
         <div className="reactflow-wrapper">
           <ReactFlow

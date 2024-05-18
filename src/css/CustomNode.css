@@ -6,6 +6,29 @@
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
+}
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(2px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.error-node {
+  animation: vibrate 0.1s 10;
+  box-shadow: 1px 1px 1px rgb(225, 72, 72);
 }
 
 .custom-node-header {

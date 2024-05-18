@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Cookies from "js-cookie";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/SaveButton.css";
 
-const SaveButton = ({ nodes, edges }) => {
+const SaveButton = ({ nodes, edges, setNodes }) => {
   const [isSaving, setIsSaving] = useState(false);
 
   const hasEmptyHandles = (node) => {
@@ -22,6 +22,16 @@ const SaveButton = ({ nodes, edges }) => {
 
   const saveHandler = () => {
     if (!validateNodes()) {
+      // Set hasError property to true for nodes with empty handles
+      const updatedNodes = nodes.map((node) => {
+        if (hasEmptyHandles(node)) {
+          return { ...node, data: { ...node.data, hasError: true } };
+        }
+        return node;
+      });
+
+      // Update nodes state
+      setNodes(updatedNodes);
       toast.error("Error: There is a Node with empty handle.", {
         position: "top-center",
         autoClose: 2000,
@@ -33,12 +43,17 @@ const SaveButton = ({ nodes, edges }) => {
       });
       return;
     }
-
+    // Reset hasError property for all nodes to false
+    const updatedNodes = nodes.map((node) => ({
+      ...node,
+      data: { ...node.data, hasError: false },
+    }));
+    setNodes(updatedNodes);
     setIsSaving(true);
 
     // Save nodes and edges to cookies
-    Cookies.set("savedNodes", JSON.stringify(nodes), { expires: 7 });
-    Cookies.set("savedEdges", JSON.stringify(edges), { expires: 7 });
+    localStorage.setItem("savedNodes", JSON.stringify(updatedNodes));
+    localStorage.setItem("savedEdges", JSON.stringify(edges));
 
     setTimeout(() => {
       setIsSaving(false);
