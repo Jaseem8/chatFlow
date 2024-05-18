@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Chat Flow Project 🚀
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Chat Flow project! This application provides a platform for creating interactive chat flow diagrams.
 
-## Available Scripts
+## Functionalities
 
-In the project directory, you can run:
+### 1. Node Creation and Connection
 
-### `npm start`
+- Users can create different types of nodes representing various chat elements.
+- Nodes can be connected to each other to visualize the flow of conversation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Customization
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Nodes can be customized with different labels and contents to represent different chat scenarios.
 
-### `npm test`
+### 3. Node Deletion
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Nodes can be deleted by selecting them and pressing the Backspace key, or by using the delete button provided.
 
-### `npm run build`
+### 4. Settings Panel
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Users can view and edit the details of selected nodes using the settings panel.
+- The settings panel allows users to modify the content of nodes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 5. Save and Load
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Users can save their chat flow diagrams for future reference.
+- Saved diagrams can be loaded back into the application for further editing.
 
-### `npm run eject`
+### 6. Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- The project is deployed on Vercel at [Chat Flow](https://chat-flow-black.vercel.app/).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- React.js
+- React Flow library
+- React Toastify
+- CSS
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Getting Started
 
-## Learn More
+- Clone the repository: `git clone <repository-url>`
+- Install dependencies: `npm install`
+- Run the development server: `npm start`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Contributions are welcome! Feel free to submit bug reports, feature requests, or pull requests.
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Happy Chat Flowing! 🌟
