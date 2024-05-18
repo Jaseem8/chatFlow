@@ -1,31 +1,59 @@
 import React, { useState } from "react";
-import Cookies from "js-cookie"; // Import Cookies library for managing cookies
+import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../css/SaveButton.css";
 
-const Save = ({ nodes, edges }) => {
-  const [saving, setSaving] = useState(false);
+const SaveButton = ({ nodes, edges }) => {
+  const [isSaving, setIsSaving] = useState(false);
+
+  const hasEmptyHandles = (node) => {
+    const hasSourceHandle = edges.some((edge) => edge.source === node.id);
+    const hasTargetHandle = edges.some((edge) => edge.target === node.id);
+    return !(hasSourceHandle || hasTargetHandle);
+  };
+
+  const validateNodes = () => {
+    if (nodes.length <= 1) return true;
+
+    const nodesWithEmptyHandles = nodes.filter(hasEmptyHandles);
+    return nodesWithEmptyHandles.length == 0;
+  };
 
   const saveHandler = () => {
-    setSaving(true); // Set saving state to true to indicate saving is in progress
-    // Save nodes to cookies
+    if (!validateNodes()) {
+      toast.error("Error: There is a Node with empty handle.", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    setIsSaving(true);
+
+    // Save nodes and edges to cookies
     Cookies.set("savedNodes", JSON.stringify(nodes), { expires: 7 });
     Cookies.set("savedEdges", JSON.stringify(edges), { expires: 7 });
 
-    // Simulate asynchronous saving with setTimeout
     setTimeout(() => {
-      setSaving(false); // Set saving state back to false after saving is complete
-      console.log("Nodes saved:", edges);
-      console.log("Nodes saved:", nodes);
-    }, 1000); // Simulate a 2-second delay
+      setIsSaving(false);
+      console.log("Nodes and edges saved:", { nodes, edges });
+    }, 1000);
   };
 
   return (
     <div className="wrapper">
-      <button className="save-button" onClick={saveHandler} disabled={saving}>
-        {saving ? "Saving..." : "Save Changes"}
+      <ToastContainer />
+      <button className="save-button" onClick={saveHandler}>
+        {isSaving ? "Saving..." : "Save Changes"}
       </button>
     </div>
   );
 };
 
-export default Save;
+export default SaveButton;

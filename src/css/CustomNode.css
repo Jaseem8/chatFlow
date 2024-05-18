@@ -32,9 +32,28 @@
   text-align: left;
 }
 
-.custom-handle {
+.custom-handle1 {
   width: 0.5px;
   height: 0.5px;
-  background: #272e35;
-  border: none;
+  background: #0080ff;
+}
+.custom-handle2 {
+  width: 0.5px;
+  height: 0.5px;
+  background: #1199ae;
+}
+.custom-handle-top {
+  width: 0.5px;
+  height: 0.5px;
+  background: #df1812;
+
+  top: 30%;
+}
+.custom-handle-bottom {
+  width: 0.5px;
+  height: 0.5px;
+  background: #922c29;
+
+  bottom: 30%;
+  transform: translateY(60%);
 }

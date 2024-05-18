@@ -19,8 +19,18 @@ const SettingsPanel = ({ node, onConfirm, onBack }) => {
   const handleBackClick = () => {
     onBack();
   };
+  const [enter, setEnter] = useState(false);
+
+  useEffect(() => {
+    setEnter(true);
+    return () => setEnter(false);
+  }, [node]);
   return (
-    <div className="settings-panel">
+    <div
+      className={`settings-panel ${
+        enter ? "settings-panel-enter" : "settings-panel-exit"
+      }`}
+    >
       <button onClick={handleBackClick} className="back-button">
         ⬅️
       </button>

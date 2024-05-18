@@ -8,8 +8,20 @@
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
+.settings-panel-enter {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.settings-panel-exit {
+  opacity: 0;
+  transform: translateX(100%);
+}
 .back-button {
   position: absolute;
   left: 0px;

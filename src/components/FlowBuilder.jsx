@@ -25,7 +25,7 @@ let savedNodes;
 if (savedNodesCookie) {
   // If the cookie exists, parse its value to retrieve the saved nodes
   savedNodes = JSON.parse(savedNodesCookie);
-  id = savedNodes.length - 1;
+  id = savedNodes.length;
   console.log("Saved nodes:", savedNodes);
 } else {
   id = 0;
@@ -51,8 +51,22 @@ const FlowBuilder = () => {
   const [isNodeSelected, setisNodeSelected] = useState(false);
   const [selectedNode, setSelectedNode] = useState(null);
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    (params) => {
+      // Check if there is already an edge from the source handle
+      const sourceHandleHasEdge = edges.some(
+        (edge) =>
+          edge.source === params.source &&
+          edge.sourceHandle === params.sourceHandle
+      );
+      if (sourceHandleHasEdge) {
+        alert(
+          "Error: Each source handle can only have one edge originating from it."
+        );
+        return;
+      }
+      setEdges((eds) => addEdge(params, eds));
+    },
+    [edges]
   );
 
   const onDragOver = useCallback((event) => {
@@ -82,7 +96,7 @@ const FlowBuilder = () => {
         id: getId(),
         type: "custom-node",
         position: dropPosition,
-        data: { label: `${type} node`, content: "Hello" },
+        data: { label: `${type} node`, content: `Default Text ${id}` },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
       };
@@ -91,6 +105,7 @@ const FlowBuilder = () => {
     },
     [reactFlowInstance]
   );
+
   const onNodeClick = (event, node) => {
     setSelectedNode(node);
     setisNodeSelected(true);

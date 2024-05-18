@@ -7,8 +7,19 @@
   border-radius: 5px;
   border: 2px solid rgb(89, 0, 255);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.nodes-panel-enter {
+  opacity: 1;
+  transform: translateX(0);
 }
 
+.nodes-panel-exit {
+  opacity: 0;
+  transform: translateX(-100%);
+}
 .node-item {
   display: flex;
   flex-direction: column;

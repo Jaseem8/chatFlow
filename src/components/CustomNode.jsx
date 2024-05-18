@@ -2,6 +2,7 @@ import React from "react";
 import { Handle, Position } from "reactflow";
 import "../css/CustomNode.css"; // Custom CSS for your node
 import chatImage from "../images/whatsapp.png";
+
 const CustomNode = ({ data }) => {
   return (
     <div className="custom-node">
@@ -13,13 +14,21 @@ const CustomNode = ({ data }) => {
       <Handle
         type="source"
         position={Position.Right}
-        className="custom-handle"
+        id="right"
+        className="custom-handle1"
       />
       <Handle
         type="target"
         position={Position.Left}
-        className="custom-handle"
+        id="left"
+        className="custom-handle2"
       />
+      {/* <Handle
+        type="target"
+        position={Position.Left}
+        id="bottom-left"
+        className="custom-handle-bottom"
+      /> */}
     </div>
   );
 };
