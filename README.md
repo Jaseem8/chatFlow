@@ -1,6 +1,12 @@
 # Chat Flow Project 🚀
 
+![Chat Flow](https://drive.google.com/file/d/1qR2xHNHezrtnqehix2QcInV2SDyH2yKt/view?usp=sharing)
+
 Welcome to the Chat Flow project! This application provides a platform for creating interactive chat flow diagrams.
+
+## Deployed Link
+
+[Chat Flow - Deployed Version](https://chat-flow-black.vercel.app/)
 
 ## Functionalities
 
@@ -27,10 +33,6 @@ Welcome to the Chat Flow project! This application provides a platform for creat
 - Users can save their chat flow diagrams for future reference.
 - Saved diagrams can be loaded back into the application for further editing.
 
-### 6. Deployment
-
-- The project is deployed on Vercel at [Chat Flow](https://chat-flow-black.vercel.app/).
-
 ## Technologies Used
 
 - React.js
@@ -50,6 +52,6 @@ Contributions are welcome! Feel free to submit bug reports, feature requests, or
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License
 
 Happy Chat Flowing! 🌟
