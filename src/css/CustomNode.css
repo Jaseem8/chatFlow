@@ -1,6 +1,6 @@
 .custom-node {
   width: 150px;
-  aspect-ratio: 6;
+  height: fit-content;
 
   border-radius: 5px;
   overflow: hidden;
@@ -27,7 +27,7 @@
 }
 
 .error-node {
-  animation: vibrate 0.1s 10;
+  animation: vibrate 0.1s ease-in-out 10;
   box-shadow: 1px 1px 1px rgb(225, 72, 72);
 }
 
@@ -47,12 +47,16 @@
 }
 
 .custom-node-body {
-  background-color: #f1f1f1;
-  color: #333;
-  padding: 3px;
-  font-size: 9px;
+  padding: 2px; /* Increased padding for better readability */
+  font-size: 6px; /* Adjusted font size for better readability */
   font-weight: bold;
   text-align: left;
+  word-wrap: break-word; /* Ensures that long words break and wrap to the next line */
+  white-space: pre-wrap; /* Preserves whitespace and breaks lines as necessary */
+  overflow-wrap: break-word; /* Breaks words to prevent overflow */
+  overflow: hidden; /* Prevents overflowing content */
+  max-width: 100%; /* Ensures the text stays within the container */
+  box-sizing: border-box; /* Ensures padding is included in the total width/height */
 }
 
 .custom-handle1 {
@@ -79,4 +83,40 @@
 
   bottom: 30%;
   transform: translateY(60%);
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: rgb(240, 102, 102);
+  font-size: 6px;
+  cursor: pointer;
+  margin-right: 2px;
+  padding: 0px;
+}
+
+.delete-button:hover {
+  color: rgb(87, 0, 0);
+  transform: scale(1.05);
+}
+
+.tooltip {
+  visibility: hidden;
+
+  background-color: rgb(247, 247, 247);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  border-radius: 6px;
+  font-size: 7px;
+  position: absolute;
+  z-index: 2;
+  padding: 1px;
+  margin-left: -140px; /* Adjust this value to position the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.delete-button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }

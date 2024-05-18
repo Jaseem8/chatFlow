@@ -1,7 +1,6 @@
-// src/components/NodesPanel.jsx
 import React, { useEffect, useState } from "react";
 import chatImage from "../images/chat2.png";
-import "../css/NodesPanel.css"; // Assuming you have a CSS file for styling
+import "../css/NodesPanel.css";
 
 const NodesPanel = () => {
   const onDragStart = (event, nodeType) => {

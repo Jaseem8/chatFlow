@@ -17,15 +17,15 @@ import SettingsPanel from "./SettingsPanel";
 import Save from "./Save";
 import "../css/FlowBuilder.css";
 import { nodeTypes } from "../nodes";
-import { edgeTypes } from "../edges";
 
 import { toast } from "react-toastify";
 
+// Initialize ID counter for nodes
 let id;
+// Load saved nodes from local storage if available
 const savedNodesCookie = localStorage.getItem("savedNodes");
 let savedNodes;
 if (savedNodesCookie) {
-  // If the cookie exists, parse its value to retrieve the saved nodes
   savedNodes = JSON.parse(savedNodesCookie);
   console.log("loaded Nodes", savedNodes);
   id = savedNodes.length;
@@ -34,28 +34,29 @@ if (savedNodesCookie) {
   savedNodes = [];
 }
 
+// Load saved edges from local storage if available
 const savedEdgesCookie = localStorage.getItem("savedEdges");
 let savedEdges;
 if (savedEdgesCookie) {
-  // If the cookie exists, parse its value to retrieve the saved edges
   savedEdges = JSON.parse(savedEdgesCookie);
   console.log("Saved edges:", savedEdges);
 } else {
   savedEdges = [];
 }
 
+// Function to generate a unique ID for nodes
 const getId = () => `dndnode_${id++}`;
 
 const FlowBuilder = () => {
+  // State management for nodes, edges, and React Flow instance
   const [nodes, setNodes, onNodesChange] = useNodesState(savedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(savedEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [isNodeSelected, setisNodeSelected] = useState(false);
   const [selectedNode, setSelectedNode] = useState(null);
 
+  // Function to handle edge creation when connecting nodes
   const onConnect = useCallback(
     (params) => {
-      // Check if there is already an edge from the source handle
       const sourceHandleHasEdge = edges.some(
         (edge) =>
           edge.source === params.source &&
@@ -78,38 +79,35 @@ const FlowBuilder = () => {
       }
       setEdges((eds) => addEdge(params, eds));
     },
-    [edges]
+    [edges, setEdges]
   );
 
+  // Function to handle drag over event
   const onDragOver = useCallback((event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
 
+  // Function to handle drop event
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
 
       const type = event.dataTransfer.getData("application/reactflow");
 
-      // check if the dropped element is valid
-      // check if the dropped element is valid
       if (typeof type === "undefined" || !type) {
         return;
       }
 
       if (type === "source" || type === "target") {
-        // It's an edge, so ignore it
         return;
       }
 
-      // reactFlowInstance.project was renamed to reactFlowInstance.screenToFlowPosition
-      // and you don't need to subtract the reactFlowBounds.left/top anymore
-      // details: https://reactflow.dev/whats-new/2023-11-10
       const dropPosition = reactFlowInstance.screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
       });
+
       const newNode = {
         id: getId(),
         type: "custom-node",
@@ -125,14 +123,16 @@ const FlowBuilder = () => {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance]
+    [reactFlowInstance, setNodes]
   );
 
+  // Function to handle node click event
   const onNodeClick = (event, node) => {
     setSelectedNode(node);
-    setisNodeSelected(true);
     console.log(node);
   };
+
+  // Function to handle confirm action
   const handleConfirm = (id, content) => {
     setNodes((nds) =>
       nds.map((node) =>
@@ -142,18 +142,24 @@ const FlowBuilder = () => {
 
     setSelectedNode(null);
   };
+
+  // Function to handle back action
   const handleBack = () => {
     setSelectedNode(null);
   };
+
   return (
     <>
+      {/* Save component to save the state of nodes and edges */}
       <Save nodes={nodes} edges={edges} setNodes={setNodes} />
       <div className="flow-builder">
         <div className="reactflow-wrapper">
+          {/* React Flow component */}
           <ReactFlow
             nodes={nodes}
             edges={edges}
             onNodesChange={onNodesChange}
+            onNodesDelete={() => setSelectedNode(null)}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onInit={setReactFlowInstance}
@@ -168,7 +174,9 @@ const FlowBuilder = () => {
             <Controls />
           </ReactFlow>
         </div>
+        {/* Render NodesPanel if no node is selected */}
         {!selectedNode && <NodesPanel />}
+        {/* Render SettingsPanel if a node is selected */}
         {selectedNode && (
           <SettingsPanel
             node={selectedNode}
