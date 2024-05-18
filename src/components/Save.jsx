@@ -17,7 +17,7 @@ const SaveButton = ({ nodes, edges }) => {
     if (nodes.length <= 1) return true;
 
     const nodesWithEmptyHandles = nodes.filter(hasEmptyHandles);
-    return nodesWithEmptyHandles.length == 0;
+    return nodesWithEmptyHandles.length === 0;
   };
 
   const saveHandler = () => {
@@ -42,6 +42,15 @@ const SaveButton = ({ nodes, edges }) => {
 
     setTimeout(() => {
       setIsSaving(false);
+      toast.success("Your Current WorkFlow Is Saved", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
       console.log("Nodes and edges saved:", { nodes, edges });
     }, 1000);
   };
